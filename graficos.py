@@ -1,7 +1,6 @@
 import plotly.graph_objects as go
 
-
-def gerar_linha(dataframe, nome):
+def grafico_de_linha(dataframe, nome):
     categorias = dataframe[0].columns.values
 
     fig = go.Figure()
@@ -54,7 +53,8 @@ def gerar_linha(dataframe, nome):
     with open('templates/graficos.html', 'a') as f:
         f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
 
-def gerar_barra(dataframe, nome):
+
+def grafico_de_barra(dataframe, nome):
     categorias = dataframe[0].columns.values
 
     fig = go.Figure()
