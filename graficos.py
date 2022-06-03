@@ -1,8 +1,8 @@
 import plotly.graph_objects as go
 
-def grafico_de_linha(dataframe, nome):
+def grafico_de_linha(dataframe, nome, ordem):
     categorias = dataframe[0].columns.values
-
+    ordem = ordem
     fig = go.Figure()
     conta = 0
     for i in dataframe:
@@ -23,6 +23,7 @@ def grafico_de_linha(dataframe, nome):
         autosize=True,
         width=800,
         height=450,
+        margin_l=200,
         template='xgridoff',
         margin_r=80,
 
@@ -31,13 +32,14 @@ def grafico_de_linha(dataframe, nome):
             showspikes=False,
             ticklabelposition="outside right",
             tickfont=dict(size=12),
-
         ),
 
         yaxis = dict(
             showgrid=True,
             tickmode='linear',
             autorange = True,
+            categoryorder='array',
+            categoryarray= ordem,
             range=[-0.5,3.5]
         ),
 
@@ -54,7 +56,7 @@ def grafico_de_linha(dataframe, nome):
         f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
 
 
-def grafico_de_barra(dataframe, nome):
+def grafico_de_barra(dataframe, nome, ordem):
     categorias = dataframe[0].columns.values
 
     fig = go.Figure()
@@ -64,8 +66,6 @@ def grafico_de_barra(dataframe, nome):
         valores = None
         for itens in i.values:
             valores = itens
-            print(valores)
-
 
         fig.add_trace(go.Bar(
             x= categorias,
@@ -80,7 +80,7 @@ def grafico_de_barra(dataframe, nome):
         width=800,
         height=450,
         template='xgridoff',
-        margin_r=80,
+        margin_l=200,
         bargap=0.30,
         bargroupgap=0.3,
 
@@ -97,8 +97,7 @@ def grafico_de_barra(dataframe, nome):
             range=[-1, 4],
             zeroline = True,
             categoryorder='array',
-            categoryarray=['R','N','A']
-
+            categoryarray=ordem,
         ),
         title = dict(
             font=dict(
